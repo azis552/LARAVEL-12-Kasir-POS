@@ -1,6 +1,6 @@
 {{-- sidebar --}}
     <!-- Wrapper -->
-    <div class="wrapper">
+    <div class="wrapper m">
         <!-- Sidebar -->
         <div class="sidebar">
             <h5 class="p-3">Menu</h5>
