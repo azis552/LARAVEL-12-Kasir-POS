@@ -56,7 +56,8 @@ class UserController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $user = User::find($id);
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -64,7 +65,23 @@ class UserController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $user = User::find($id);
+
+        $validate = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'role_id' => 'required|in:1,2,3,4',
+        ]);
+
+        if ($request->filled('password')) {
+            $validate['password'] = bcrypt($validate['password']);
+        } else {
+            unset($validate['password']);
+        }
+
+        $user->update($validate);
+        return redirect()->route('users.index')->with('success', 'User updated successfully');
     }
 
     /**
@@ -72,6 +89,11 @@ class UserController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $user = User::find($id);
+        if ($user) {
+            $user->delete();
+            return redirect()->route('users.index')->with('success', 'User deleted successfully');
+        }
+        return redirect()->route('users.index')->with('error', 'User not found');
     }
 }
