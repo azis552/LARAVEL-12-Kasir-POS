@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MenusController;
+use App\Http\Controllers\RoleMenusController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -12,3 +13,5 @@ Route::post('users', [UserController::class, 'store'])->name('users.store');
 Route::put('users/{id}', [UserController::class, 'update'])->name('users.update');
 
 Route::resource('menus', MenusController::class);
+
+Route::resource('role_menus', RoleMenusController::class);
