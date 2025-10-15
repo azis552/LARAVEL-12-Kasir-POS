@@ -4,3 +4,5 @@
 @yield('content')
 
 @include('template.footer')
+
+@yield('script')

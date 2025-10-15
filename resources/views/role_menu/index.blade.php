@@ -47,6 +47,8 @@
                         @endforeach
                     </tbody>
                 </table>
+
+                {{ $role_menus->links() }}
             </div>
         </div>
     </div>

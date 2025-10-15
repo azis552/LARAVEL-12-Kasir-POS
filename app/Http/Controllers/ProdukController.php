@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Categori;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProdukController extends Controller
@@ -11,7 +13,8 @@ class ProdukController extends Controller
      */
     public function index()
     {
-        //
+        $produks = Product::paginate(10);
+        return view('produk.index', compact('produks'));
     }
 
     /**
@@ -60,5 +63,15 @@ class ProdukController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function tambahKategori()
+    {
+        $validate = request()->validate([
+            'name' => 'required|string|max:255|unique:categoris',
+        ]);
+
+        $kategori = Categori::create($validate);
+        return response()->json(['message' => 'Kategori created successfully']);
     }
 }

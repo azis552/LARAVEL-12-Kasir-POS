@@ -22,9 +22,14 @@ class MenuProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('template.sidebar', function ($view) {
+            $roleId = auth()->user()->role_id;
+            // Ambil menu berdasarkan role
             $menus = Menu::with('children')
-            ->whereNull('parent_id')
-            ->get();
+                ->whereNull('parent_id')
+                ->whereHas('roles', function ($query) use ($roleId) {
+                    $query->where('roles.id', $roleId);
+                })
+                ->get();
             $view->with('menus', $menus);
         });
     }

@@ -11,7 +11,7 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        //
+        dd('index');
     }
 
     /**
@@ -64,6 +64,6 @@ class TransaksiController extends Controller
 
     public function pos()
     {
-        //
+        return view('transaksi.pos');
     }
 }
